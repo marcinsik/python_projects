@@ -173,28 +173,6 @@ Projekt obsługuje język polski poprzez:
 - Segmentację zdań dostosowaną do polskiej interpunkcji
 - Normalizację tekstu z polskimi znakami diakrytycznymi
 
-## 📊 Wymagania Systemowe
 
-- **Python**: 3.8+
-- **RAM**: Minimum 2GB (4GB zalecane dla większych tekstów)
-- **Miejsce na dysku**: ~500MB (z modelami NLTK)
-- **System**: Linux, macOS, Windows
 
-## 🤝 Jak Przyczynić się do Projektu
 
-1. **Fork** repozytorium
-2. Stwórz **branch** dla nowej funkcjonalności
-3. **Testuj** zmiany na różnych typach tekstów
-4. Stwórz **Pull Request** z opisem zmian
-
-## 📝 Licencja
-
-Projekt udostępniony na licencji MIT. Zobacz plik `LICENSE` dla szczegółów.
-
-## 👨‍💻 Autor
-
-**TextSummarizer** - Projekt edukacyjny demonstrujący zaawansowane techniki NLP w Pythonie.
-
----
-
-*Projekt w ramach nauki przetwarzania języka naturalnego i technik podsumowywania tekstu.*
