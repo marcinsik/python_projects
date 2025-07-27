@@ -1,0 +1,135 @@
+Super wybór! Automatyczny Generator Treści / Podsumowań (za pomocą NLP) to naprawdę fajny i wartościowy projekt, który mocno podbije Twoje portfolio. Pokazuje, że ogarniasz gorący temat w branży AI i potrafisz tworzyć inteligentne rozwiązania.
+
+Plan Projektu: Automatyczny Generator Treści / Podsumowań (NLP)
+
+Nazwa Projektu: TextSummarizer (lub Generator Podsumowań)
+
+Cel: Stworzenie narzędzia do automatycznego podsumowywania tekstu i/lub ekstrakcji słów kluczowych z różnych źródeł.
+
+Etap 1: Podstawy NLP i Podsumowywanie Ekstrakcyjne
+
+    Wybór i Przygotowanie Tekstu Źródłowego:
+
+        Na początku skup się na czytaniu tekstu z prostego pliku .txt. Później możesz dodać obsługę plików .pdf lub stron internetowych.
+
+        Zadanie: Napisz funkcję, która wczytuje zawartość pliku tekstowego do zmiennej Pythona.
+
+        Technologie: Wbudowane funkcje Pythona do otwierania i czytania plików (open()).
+
+    Podstawowe Przetwarzanie Języka Naturalnego (NLP):
+
+        Segmentacja zdań: Podziel cały tekst na pojedyncze zdania. To klucz do podsumowywania.
+
+        Tokenizacja: Podziel każde zdanie na słowa.
+
+        Usuwanie "stop words": Usuń powszechne słowa (np. "i", "lub", "jest"), które nie niosą ze sobą dużej wartości informacyjnej.
+
+        Normalizacja (opcjonalnie na początek): Konwersja słów do ich form podstawowych (lematyzacja lub stemming).
+
+        Technologie: Biblioteka NLTK jest świetna na początek. Możesz użyć nltk.sent_tokenize i nltk.word_tokenize, a także listę stopwords. Pamiętaj, żeby pobrać potrzebne dane NLTK (nltk.download('punkt'), nltk.download('stopwords')).
+
+    Implementacja Podsumowywania Ekstrakcyjnego (np. TextRank):
+
+        To najprostsza forma podsumowywania, która wybiera najważniejsze zdania z oryginalnego tekstu.
+
+        Idea: Oceniaj ważność zdań na podstawie słów w nich zawartych i ich powiązań z innymi zdaniami. Możesz to zrobić, tworząc graf, gdzie węzły to zdania, a krawędzie reprezentują podobieństwo zdań (np. na podstawie liczby wspólnych słów). Następnie użyj algorytmu typu PageRank (na którym opiera się TextRank), aby znaleźć "najważniejsze" zdania.
+
+        Zadanie: Zaimplementuj prosty algorytm TextRank. Możesz też użyć gotowej biblioteki, np. sumy (do TextRank) lub gensim (do TextRank, jeśli chcesz).
+
+        Wynik: Zwróć N najważniejszych zdań, które utworzą podsumowanie.
+
+    Ekstrakcja Słów Kluczowych (opcjonalnie, ale rekomendowane):
+
+        Podobnie jak w podsumowywaniu, możesz zidentyfikować najważniejsze słowa lub frazy w tekście.
+
+        Metody: Częstotliwość występowania słów (po usunięciu stop words), wagi TF-IDF, lub też wykorzystanie TextRank do ekstrakcji słów kluczowych.
+
+        Zadanie: Zaimplementuj prostą ekstrakcję słów kluczowych i zwróć listę top-K słów.
+
+    Wynik i Wyświetlanie:
+
+        Wyświetl wygenerowane podsumowanie i słowa kluczowe w konsoli.
+
+Etap 2: Ulepszenia, Źródła Danych i Interfejs
+
+    Obsługa Różnych Źródeł Tekstu:
+
+        Pliki PDF: Użyj biblioteki PyPDF2 lub pdfplumber do ekstrakcji tekstu z plików PDF.
+
+        Strony Internetowe: Użyj requests do pobierania zawartości strony HTML i BeautifulSoup do wyodrębnienia głównego tekstu (np. artykułu, pomijając nagłówki, stopki itp.).
+
+        Technologie: PyPDF2 / pdfplumber, requests, BeautifulSoup.
+
+    Zaawansowane Modele NLP (dla lepszych podsumowań):
+
+        Modele Hugging Face Transformers: To prawdziwy "game changer" w NLP. Dają dostęp do zaawansowanych modeli (np. T5, BART) trenowanych do podsumowywania abstrakcyjnego, które generuje nowe zdania, a nie tylko wybiera istniejące.
+
+        Zadanie: Wybierz jeden z modeli do podsumowywania z biblioteki transformers (np. pipeline("summarization")) i zintegruj go ze swoim projektem.
+
+        Ważne: To może wymagać sporo zasobów (RAM/CPU), ale efekt będzie o wiele bardziej imponujący.
+
+        Technologie: transformers, torch / tensorflow (jeden z nich jako backend dla transformers).
+
+    Interfejs Użytkownika:
+
+        CLI (Command Line Interface): Użyj argparse (dla prostych skryptów) lub Click / Typer (dla bardziej zaawansowanych CLI), aby użytkownik mógł podawać ścieżkę do pliku, URL lub wklejać tekst bezpośrednio.
+
+        Web GUI (Streamlit / Flask):
+
+            Streamlit: Szybko i łatwo stworzysz interaktywny dashboard, gdzie użytkownik może wkleić tekst lub przesłać plik i natychmiast zobaczyć podsumowanie. Jest idealny do prezentacji projektów Machine Learning.
+
+            Flask: Jeśli chcesz zbudować bardziej tradycyjną aplikację webową z routowaniem, szablonami HTML itd.
+
+        Zadanie: Zaimplementuj prosty interfejs.
+
+Etap 3: Testowanie, Optymalizacja i Dokumentacja
+
+    Testowanie:
+
+        Przygotuj różne typy tekstów do testowania (krótkie, długie, formalne, nieformalne, z błędami).
+
+        Sprawdź, jak algorytmy radzą sobie z różnymi długościami podsumowań i liczbą słów kluczowych.
+
+        Jeśli używasz modeli transformers, sprawdź, jak działa na różnych typach tekstu.
+
+    Optymalizacja (dla modeli AI):
+
+        Jeśli używasz dużych modeli AI, pomyśl o optymalizacji (np. kwantyzacja, użycie mniejszych wersji modeli, jeśli to możliwe).
+
+        Poinformuj w README, że model może być zasobożerny.
+
+    Dokumentacja (README.md na GitHubie):
+
+        Opis Projektu: Co to jest, do czego służy, jakie problemy rozwiązuje.
+
+        Instalacja: Jak uruchomić projekt (np. pip install -r requirements.txt). Wymień wszystkie zależności.
+
+        Użycie: Jak korzystać z programu (przykłady komend CLI lub zrzuty ekranu/GIFy dla GUI).
+
+        Funkcjonalności: Wypisz wszystkie zaimplementowane funkcje (np. "podsumowywanie ekstrakcyjne", "obsługa PDF", "interfejs webowy").
+
+        Użyte Technologie: Wymień wszystkie biblioteki i narzędzia.
+
+        Wyzwania i Nauki: Opisz, z jakimi problemami się zmierzyłeś i czego się nauczyłeś podczas ich rozwiązywania. To bardzo cenne dla rekruterów!
+
+        Zrzuty Ekranu/GIFy: Obowiązkowo dla GUI.
+
+
+
+
+
+
+
+├── src/
+│   ├── text_processor.py        # Funkcje do tokenizacji, usuwania stop words
+│   ├── summarizer.py            # Logika TextRank / integracja z Transformers
+│   ├── file_reader.py           # Czytanie z TXT, PDF, URL
+│   └── __init__.py
+├── app.py                       # Główny plik aplikacji (CLI lub uruchamiający Flask/Streamlit)
+├── templates/ (dla Flask)       # Pliki HTML
+├── static/ (dla Flask)          # Pliki CSS/JS
+├── test_data/                   # Przykładowe pliki tekstowe do testowania
+│   ├── article.txt
+│   └── report.pdf
+├── requirements.txt             # Lista zależności (pip freeze > requirements.txt)
+├── README.md                    # Dokumentacja projektu
