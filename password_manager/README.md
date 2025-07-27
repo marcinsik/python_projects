@@ -1,6 +1,7 @@
 # 🔐 SecurePass - Menedżer Haseł
 
 Bezpieczny menedżer haseł z szyfrowaniem AES-256 i intuicyjnym interfejsem graficznym.
+<img width="996" height="758" alt="obraz" src="https://github.com/user-attachments/assets/841ca35e-5284-433c-8329-ab0147fce7f5" />
 
 ## ✨ Funkcjonalności
 
