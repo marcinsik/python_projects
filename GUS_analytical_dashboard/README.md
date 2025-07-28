@@ -1,111 +1,220 @@
-# Dashboard Danych Publicznych (GUS)
+# Public Data Dashboard (Statistics Poland - GUS)
 
-Interaktywny dashboard do analizy danych publicznych z Głównego Urzędu Statystycznego.
+Interactive dashboard for analyzing public data from Statistics Poland (Główny Urząd Statystyczny).
 
-## Funkcjonalności
+## Features
 
-- 📊 Interaktywne wykresy PKB i bezrobocia
-- 🗺️ Filtrowanie po województwach
-- 📅 Analiza trendów w czasie
-- 📈 Porównanie regionów
-- 🔄 Import własnych danych
+- 📊 Interactive GDP and unemployment charts
+- 🗺️ Filtering by voivodeships
+- 📅 Time trend analysis
+- 📈 Regional comparisons
+- 🔄 Import custom data
+- 🗺️ **Interactive Map of Poland** - choropleth visualization with value gradients
 
-## Technologie
+## Technologies
 
-Aplikacja została zbudowana z wykorzystaniem następujących technologii:
+The application is built using the following technologies:
 
-### Backend & Analiza Danych
-- **Python ** - główny język programowania
-- **Pandas ** - manipulacja i analiza danych
-- **NumPy ** - obliczenia numeryczne
+### Backend & Data Analysis
+- **Python** - main programming language
+- **Pandas** - data manipulation and analysis
+- **NumPy** - numerical computations
 
-### Frontend & Wizualizacje
-- **Streamlit ** - framework do tworzenia interaktywnych aplikacji webowych
-- **Plotly ** - biblioteka do tworzenia interaktywnych wykresów i wizualizacji
+### Frontend & Visualizations
+- **Streamlit** - framework for creating interactive web applications
+- **Plotly** - library for creating interactive charts and visualizations
 
-### Import/Export Danych
-- **OpenPyXL ** - obsługa plików Excel (.xlsx, .xls)
-- **Requests ** - komunikacja HTTP (do przyszłych integracji z API)
+### Data Import/Export
+- **OpenPyXL** - Excel file handling (.xlsx, .xls)
+- **Requests** - HTTP communication (for future API integrations)
 
-### Architektura
-- **Modularna struktura** - oddzielne moduły dla wczytywania danych i wizualizacji
-- **Responsywny design** - dostosowuje się do różnych rozmiarów ekranów
-- **Cache'owanie danych** - optymalizacja wydajności przez Streamlit
+### Architecture
+- **Modular structure** - separate modules for data loading and visualizations
+- **Responsive design** - adapts to different screen sizes
+- **Data caching** - performance optimization through Streamlit
 
-## Instalacja
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uruchomienie
+## Running
 
-### Metoda 1: Bezpośrednie uruchomienie
+### Method 1: Direct execution
 ```bash
 streamlit run app.py
 ```
 
-### Metoda 2: Używając skryptu (zalecane)
+### Method 2: Using script (recommended)
 ```bash
 ./run_app.sh
 ```
 
-### Metoda 3: Z aktywowanym środowiskiem wirtualnym
+### Method 3: With activated virtual environment
 ```bash
 source .venv/bin/activate
 streamlit run app.py --server.port 8501
 ```
 
-Po uruchomieniu aplikacja będzie dostępna pod adresem: **http://localhost:8501**
+After launching, the application will be available at: **http://localhost:8501**
 
 ```
 analytical_dashboard/
-├── app.py                  # 🎯 Główna aplikacja Streamlit z interfejsem użytkownika
-├── data_loader.py          # 📁 Moduł do wczytywania i przetwarzania danych
-├── visualizations.py      # 📊 Funkcje do tworzenia wykresów Plotly
-├── data/                   # 📂 Folder z danymi
-│   └── sample_data.csv     #     Przykładowe dane GUS (PKB, bezrobocie)
-├── .venv/                  # 🐍 Środowisko wirtualne Python
-├── requirements.txt        # 📦 Lista zależności Python
-├── run_app.sh             # 🚀 Skrypt do łatwego uruchomienia aplikacji
-└── README.md              # 📖 Ten plik
+├── app.py                    # 🎯 Main application entry point (restructured)
+├── main.py                   # 🚀 Application controller and orchestrator
+├── config.py                 # ⚙️ Configuration settings and constants
+├── session_manager.py        # 💾 Session state management
+├── ui_components.py          # 🎨 UI component rendering functions
+├── analysis_views.py         # 📊 Standard analysis view implementations
+├── map_analysis_views.py     # 🗺️ Map-specific analysis views
+├── data_loader.py            # 📁 Module for loading and processing data
+├── visualizations.py         # 📊 Functions for creating Plotly charts
+├── map_visualizations.py     # 🗺️ Interactive maps and choropleth visualizations
+├── data/                     # 📂 Data folder
+│   └── sample_data.csv       #     Sample GUS data (GDP, unemployment)
+├── .venv/                    # 🐍 Python virtual environment
+├── requirements.txt          # 📦 Python dependencies list
+├── run_app.sh               # 🚀 Script for easy application launch
+└── README.md                # 📖 This file
 ```
 
-### Opis modułów
+### Module Description
 
-#### `app.py` - Główna aplikacja Streamlit
-- **Interface użytkownika**: Sidebar z filtrami i opcjami
-- **Typy analiz**: Przegląd główny, analiza PKB, bezrobocie, korelacje, tempo wzrostu
-- **Responsywny design**: Dostosowuje się do różnych rozmiarów ekranów
-- **Interaktywność**: Dynamiczne filtry, wybór województw i zakresów czasowych
+#### Core Application Files
 
-#### `data_loader.py` - Zarządzanie danymi
-- **Klasa DataLoader**: Centralne zarządzanie danymi
-- **Import danych**: Obsługa CSV, Excel (.xlsx, .xls)
-- **Walidacja**: Sprawdzanie kompletności i poprawności danych
-- **Transformacje**: Obliczanie PKB per capita, tempa wzrostu
-- **Cache'owanie**: Optymalizacja wydajności przez Streamlit
+#### `main.py` - Application Controller
+- **Main orchestrator**: Coordinates all application components
+- **Routing logic**: Directs user selections to appropriate analysis views
+- **Error handling**: Centralized error management and user feedback
+- **Clean architecture**: Separates concerns and improves maintainability
 
-#### `visualizations.py` - Wykresy i wizualizacje
-- **Klasa Visualizations**: Gotowe funkcje do tworzenia wykresów
-- **Rodzaje wykresów**: Liniowe, słupkowe, korelacji, rozrzutu
-- **Plotly Integration**: Interaktywne wykresy z hover, zoom, pan
-- **Stylizacja**: Spójny design, paleta kolorów, responsywność
+#### `config.py` - Configuration Management
+- **Settings centralization**: All configuration in one place
+- **UI constants**: Color schemes, layout settings, analysis types
+- **Page setup**: Streamlit configuration and CSS styling
+- **Easy customization**: Modify behavior without touching core logic
 
-## Dane przykładowe
+#### `session_manager.py` - State Management
+- **Session state**: Centralized session state management
+- **Object initialization**: Manages DataLoader, Visualizations, and MapVisualizations
+- **Data access**: Provides clean interface to session data
+- **State persistence**: Maintains application state across interactions
 
-Aplikacja zawiera przykładowe dane z lat 2019-2022 dla wszystkich 16 województw Polski:
+#### `ui_components.py` - User Interface
+- **Reusable components**: Modular UI element creation
+- **Sidebar management**: Complete sidebar rendering and logic
+- **Filter controls**: Dynamic filter generation and handling
+- **Responsive design**: Components that adapt to different screen sizes
 
-- **PKB** (mld zł) - Produkt Krajowy Brutto według województw
-- **Bezrobocie** (%) - Stopa bezrobocia rejestrowanego
-- **Ludność** (tys.) - Liczba mieszkańców (opcjonalne dla PKB per capita)
+#### Analysis View Files
 
-## Możliwości rozszerzenia
+#### `analysis_views.py` - Standard Analysis Views
+- **Core analyses**: Overview, GDP, unemployment, correlations, growth
+- **Chart integration**: Uses visualization classes for consistent styling
+- **Data presentation**: Clean data display with tables and metrics
+- **Interactive elements**: User controls for customizing analysis views
 
-### Planowane funkcjonalności
-- 🌐 **Integracja z API GUS** - automatyczne pobieranie najnowszych danych
-- 🗺️ **Mapa Polski** - wizualizacja choropleth z gradientem wartości
-- 📈 **Więcej wskaźników** - inflacja, inwestycje, eksport/import
-- 🔄 **Aktualizacje real-time** - automatyczne odświeżanie danych
-- 📊 **Dashboard customowy** - możliwość konfiguracji układu
+#### `map_analysis_views.py` - Map Analysis Views
+- **Interactive maps**: Specialized map visualization handling
+- **Geographic data**: Polish voivodeship mapping and coordinates
+- **Animation controls**: Time-series and animated visualizations
+- **Map interactions**: Zoom, hover, selection functionality
+
+#### Data and Visualization Files
+
+#### `data_loader.py` - Data Management
+- **DataLoader class**: Central data management
+- **Data import**: CSV, Excel (.xlsx, .xls) support
+- **Validation**: Data completeness and correctness checking
+- **Transformations**: GDP per capita calculations, growth rate
+- **Caching**: Performance optimization through Streamlit
+
+#### `visualizations.py` - Charts and Visualizations
+- **Visualizations class**: Ready-to-use chart creation functions
+- **Chart types**: Line, bar, correlation, scatter plots
+- **Plotly Integration**: Interactive charts with hover, zoom, pan
+- **Styling**: Consistent design, color palette, responsiveness
+
+#### `map_visualizations.py` - Interactive Maps
+- **MapVisualizations class**: Ready-to-use map creation functions
+- **Map types**: Scatter maps, choropleth maps, animated time series maps
+- **Interactivity**: Hover details, zoom, pan, time animation
+- **Polish geography**: Voivodeship boundaries and coordinates integration
+
+#### Entry Point
+
+#### `app.py` - Application Entry Point
+- **Simple launcher**: Imports and runs the main application
+- **Backward compatibility**: Maintains existing run commands
+- **Clean interface**: Single point of entry for the entire application
+
+## Sample Data
+
+The application contains sample data from 2019-2022 for all 16 Polish voivodeships:
+
+- **GDP** (billion PLN) - Gross Domestic Product by voivodeships
+- **Unemployment** (%) - Registered unemployment rate
+- **Population** (thousands) - Number of inhabitants (optional for GDP per capita)
+
+## Extension Possibilities
+
+### Planned Features
+- 🌐 **GUS API Integration** - automatic downloading of latest data
+-  **More indicators** - inflation, investments, export/import
+- 🔄 **Real-time updates** - automatic data refresh
+- 📊 **Custom dashboard** - layout configuration options
+- 🗺️ **Enhanced mapping** - detailed GeoJSON boundaries and additional map styles
+
+## Map Visualization Features
+
+The application now includes interactive map visualizations of Poland:
+
+### 🗺️ Available Map Types
+
+1. **Scatter Map** - Shows voivodeships as circles sized and colored by the selected metric
+2. **Animated Time Series Map** - Shows changes over time with play/pause controls
+
+### 📍 Current Implementation
+
+- **Coordinate-based mapping**: Uses approximate coordinates of voivodeship capitals
+- **Interactive controls**: Select metrics (GDP, unemployment, population), years, and color scales
+- **Detailed analytics**: Rankings, statistics, and trend analysis for each voivodeship
+- **Responsive design**: Maps adapt to different screen sizes
+
+### 🔧 Technical Notes
+
+The current implementation uses scatter plots with coordinates for Polish voivodeship capitals. For production use with precise choropleth boundaries, you would need:
+
+- Detailed GeoJSON files with Polish voivodeship boundaries
+- Integration with services like Natural Earth Data or OpenStreetMap
+- Custom geographic projection optimization for Poland
+
+## Architecture Benefits
+
+### 🏗️ **Modular Design**
+The application has been restructured into smaller, focused modules that each handle specific responsibilities:
+
+- **Separation of Concerns**: Each file has a single, clear purpose
+- **Easier Maintenance**: Changes to one feature don't affect others
+- **Better Testing**: Individual components can be tested independently
+- **Code Reusability**: Components can be reused across different parts of the application
+
+### 🔧 **Improved Structure**
+- **Configuration Management**: All settings centralized in `config.py`
+- **Session State**: Clean session management through `session_manager.py`
+- **UI Components**: Reusable interface elements in `ui_components.py`
+- **View Separation**: Analysis logic separated from UI rendering
+
+### 📈 **Scalability**
+- **Easy Extension**: New analysis types can be added without modifying existing code
+- **Plugin Architecture**: New visualization types can be easily integrated
+- **Performance**: Better caching and state management
+- **Maintainability**: Clear code organization makes updates easier
+
+### 🚀 **Development Benefits**
+- **Faster Development**: Modular structure speeds up feature development
+- **Debugging**: Easier to isolate and fix issues
+- **Team Collaboration**: Multiple developers can work on different modules
+- **Documentation**: Clear module purposes improve code understanding
 

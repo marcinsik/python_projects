@@ -1,14 +1,20 @@
 #!/bin/bash
 
-# Skrypt do uruchomienia Dashboard Danych Publicznych (GUS)
+# Script to run the Public Data Dashboard (Statistics Poland - GUS)
 
-echo "🚀 Uruchamianie Dashboard Danych Publicznych (GUS)..."
-echo "📊 Aplikacja będzie dostępna pod adresem: http://localhost:8501"
+echo "🚀 Starting Public Data Dashboard (Statistics Poland - GUS)..."
+echo "📊 Application will be available at: http://localhost:8501"
 echo ""
 
-# Aktywuj środowisko wirtualne i uruchom aplikację
+# Check if virtual environment exists
+if [ ! -d ".venv" ]; then
+    echo "⚠️  Virtual environment not found. Please run: python -m venv .venv"
+    exit 1
+fi
+
+# Activate virtual environment and run the application
 source .venv/bin/activate
-streamlit run app.py --server.port 8501 --server.address localhost
+.venv/bin/python -m streamlit run app.py --server.port 8501 --server.address localhost
 
 echo ""
-echo "✅ Aplikacja zakończona."
+echo "✅ Application terminated."
