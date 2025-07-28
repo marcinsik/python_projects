@@ -60,6 +60,7 @@ class Config:
         "Analiza bezrobocia", 
         "Porównanie województw",
         "Mapa Polski",
+        "Wskaźniki społeczno-ekonomiczne",
         "Korelacje",
         "Tempo wzrostu"
     ]

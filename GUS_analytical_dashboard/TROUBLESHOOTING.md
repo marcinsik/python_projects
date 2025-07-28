@@ -36,23 +36,3 @@ W aplikacji dodano sekcję "🔍 Informacje o danych" która pokazuje:
 2. **Wybierz właściwy wskaźnik** - Upewnij się, że wybrany wskaźnik ma dane dla wszystkich lat
 3. **Użyj alternatywy** - Jeśli mapa punktowa nie działa, spróbuj wykresu słupkowego
 
-### 🚀 Jak uruchomić:
-
-```bash
-# Aktywuj środowisko wirtualne
-source .venv/bin/activate
-
-# Uruchom aplikację
-streamlit run app.py
-
-# Lub użyj skryptu
-./run_app.sh
-```
-
-### 📍 Lokalizacja napraw:
-
-- **`map_visualizations.py`** - Nowe funkcje mapowania
-- **`app.py`** - Ulepszona obsługa błędów i opcje animacji
-- **`test_maps.py`** - Skrypt testowy do weryfikacji funkcjonalności
-
-Wszystkie problemy z animowaną mapą zostały rozwiązane! 🎉

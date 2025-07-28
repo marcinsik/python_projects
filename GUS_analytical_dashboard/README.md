@@ -10,6 +10,7 @@ Interactive dashboard for analyzing public data from Statistics Poland (Główny
 - 📈 Regional comparisons
 - 🔄 Import custom data
 - 🗺️ **Interactive Map of Poland** - choropleth visualization with value gradients
+- 📊 **Comprehensive Socio-Economic Indicators** - demographics, industry, construction, education, labor market
 
 ## Technologies
 
@@ -68,9 +69,17 @@ analytical_dashboard/
 ├── ui_components.py          # 🎨 UI component rendering functions
 ├── analysis_views.py         # 📊 Standard analysis view implementations
 ├── map_analysis_views.py     # 🗺️ Map-specific analysis views
+├── indicators_view.py        # 📈 Comprehensive socio-economic indicators manager
 ├── data_loader.py            # 📁 Module for loading and processing data
 ├── visualizations.py         # 📊 Functions for creating Plotly charts
 ├── map_visualizations.py     # 🗺️ Interactive maps and choropleth visualizations
+├── indicators/               # 📂 Indicators modules folder
+│   ├── __init__.py           #     Package initialization
+│   ├── demographics.py      # 👥 Demographics indicators and analysis
+│   ├── industry.py          # 🏭 Industry indicators and analysis
+│   ├── construction.py      # 🏠 Construction indicators and analysis
+│   ├── education.py         # 🎓 Education indicators and analysis
+│   └── labor_market.py      # 💼 Labor market indicators and analysis
 ├── data/                     # 📂 Data folder
 │   └── sample_data.csv       #     Sample GUS data (GDP, unemployment)
 ├── .venv/                    # 🐍 Python virtual environment
@@ -217,4 +226,46 @@ The application has been restructured into smaller, focused modules that each ha
 - **Debugging**: Easier to isolate and fix issues
 - **Team Collaboration**: Multiple developers can work on different modules
 - **Documentation**: Clear module purposes improve code understanding
+
+## 📊 Socio-Economic Indicators
+
+The application now includes comprehensive socio-economic indicators across five major categories:
+
+### 👥 Demographics Indicators
+- **Population Analysis**: Total population, density, migration patterns
+- **Age Structure**: Population pyramids, aging index, dependency ratios
+- **Migration Flows**: Migration balance, urbanization rates
+- **Visualizations**: Population pyramids, migration flow maps, aging trends
+
+### 🏭 Industry Indicators  
+- **Production Metrics**: Industrial output, manufacturing, mining, energy
+- **Trade Analysis**: Export/import values, trade balance, competitiveness
+- **Investment Flows**: Foreign investment, productivity indices
+- **Visualizations**: Production overviews, trade balance trends, productivity heatmaps
+
+### 🏠 Construction Indicators
+- **Building Activity**: Construction permits, dwellings completed/started
+- **Real Estate Market**: Housing prices per m², market dynamics
+- **Infrastructure**: Public construction, renovation permits
+- **Visualizations**: Housing market overviews, price trends, construction activity maps
+
+### 🎓 Education Indicators
+- **Student Population**: Total students, public vs private institutions
+- **Graduate Analysis**: Total graduates, STEM specializations
+- **Academic Infrastructure**: Universities count, PhD students
+- **Visualizations**: Education overviews, STEM analysis, academic center maps
+
+### 💼 Labor Market Indicators
+- **Employment Metrics**: Employment rate, unemployment rate, activity rate
+- **Wage Analysis**: Average wages, wage growth, inequality analysis
+- **Job Market Dynamics**: Job vacancies, job seekers, market pressure
+- **Flexible Work**: Remote work, part-time, temporary employment
+- **Visualizations**: Labor market overviews, wage trends, employment maps
+
+### 📈 Analysis Features
+- **Overview Mode**: Quick comparison across all indicator categories
+- **Detailed Analysis**: In-depth exploration of specific categories
+- **Interactive Visualizations**: Charts, maps, and trend analysis
+- **Comparative Analysis**: Regional and temporal comparisons
+- **Sample Data**: Realistic synthetic data for all Polish voivodeships (2019-2022)
 
