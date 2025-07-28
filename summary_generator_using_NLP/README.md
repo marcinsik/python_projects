@@ -1,177 +1,176 @@
-# TextSummarizer - Automatyczny Generator Podsumowań
+# TextSummarizer - Automatic Summary Generator
 
-Narzędzie do automatycznego podsumowywania tekstu i ekstrakcji słów kluczowych z wykorzystaniem technik przetwarzania języka naturalnego (NLP).
+A tool for automatic text summarization and keyword extraction using natural language processing (NLP) techniques.
 
-## 🎯 Cel Projektu
+## 🎯 Project Goal
 
-Stworzenie inteligentnego narzędzia, które automatycznie:
-- Podsumowuje długie teksty
-- Ekstraktuje słowa kluczowe
-- Przetwarza tekst z różnych źródeł
+Create an intelligent tool that automatically:
+- Summarizes long texts
+- Extracts keywords
+- Processes text from various sources
 
-## 🚀 Aktualny Status: Etap 1 - Podstawy NLP
+## 🚀 Current Status: Stage 1 - NLP Basics
 
-### ✅ Zaimplementowane Funkcjonalności
+### ✅ Implemented Features
 
-1. **Czytanie Plików Tekstowych**
-   - Obsługa plików .txt z kodowaniem UTF-8
-   - Walidacja i obsługa błędów
+1. **Reading Text Files**
+   - Support for .txt files with UTF-8 encoding
+   - Validation and error handling
 
-2. **Podstawowe Przetwarzanie NLP**
-   - Segmentacja zdań (podział tekstu na zdania)
-   - Tokenizacja słów
-   - Usuwanie stop words (polskich i angielskich)
-   - Obliczanie częstotliwości słów
+2. **Basic NLP Processing**
+   - Sentence segmentation (splitting text into sentences)
+   - Word tokenization
+   - Stop words removal (Polish and English)
+   - Word frequency calculation
 
-3. **Podsumowywanie Ekstrakcyjne**
-   - **TextRank Algorithm**: Zaawansowany algorytm oparty na grafach
-   - **Metoda Częstotliwościowa**: Prostsza metoda fallback
-   - Zwracanie N najważniejszych zdań z oryginalnego tekstu
+3. **Extractive Summarization**
+   - **TextRank Algorithm**: Advanced graph-based algorithm
+   - **Frequency Method**: Simpler fallback method
+   - Returns N most important sentences from the original text
 
-4. **Ekstrakcja Słów Kluczowych**
-   - Identyfikacja najważniejszych słów/fraz
-   - Ranking według wagi/częstotliwości
-   - Normalizacja wyników
+4. **Keyword Extraction**
+   - Identification of the most important words/phrases
+   - Ranking by weight/frequency
+   - Normalization of results
 
-## 🛠️ Technologie
+## 🛠️ Technologies
 
 - **Python 3.13+**
-- **NLTK** - Przetwarzanie języka naturalnego
+- **NLTK** - Natural language processing
 - **scikit-learn** - TF-IDF, cosine similarity
-- **NetworkX** - Algorytmy grafowe (PageRank/TextRank)
-- **NumPy** - Operacje na macierzach
+- **NetworkX** - Graph algorithms (PageRank/TextRank)
+- **NumPy** - Matrix operations
 
-## 📦 Instalacja
+## 📦 Installation
 
-1. **Klonowanie projektu**:
+1. **Clone the project**:
 ```bash
 cd /home/Marcin/Pulpit/python_projects/summary_generator_using_NLP
 ```
 
-2. **Aktywacja środowiska wirtualnego**:
+2. **Activate the virtual environment**:
 ```bash
 source .venv/bin/activate
 ```
 
-3. **Instalacja zależności**:
+3. **Install dependencies**:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. **Pobieranie danych NLTK** (automatyczne przy pierwszym uruchomieniu):
+4. **Download NLTK data** (automatically on first run):
 ```python
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 ```
 
-## 🎮 Użycie
+## 🎮 Usage
 
-### Uruchomienie Demonstracji
+### Run the Demo
 
 ```bash
 python app.py
 ```
 
-Program automatycznie:
-1. Demonstruje podstawowe przetwarzanie NLP
-2. Tworzy przykładowy plik tekstowy
-3. Wykonuje podsumowanie i ekstrakcję słów kluczowych
-4. Przetwarza wszystkie pliki .txt z katalogu `test_data/`
+The program will automatically:
+1. Demonstrate basic NLP processing
+2. Create a sample text file
+3. Perform summarization and keyword extraction
+4. Process all .txt files in the `test_data/` directory
 
-### Użycie Programistyczne
+### Programmatic Usage
 
 ```python
 from src.file_reader import read_text_file
 from src.summarizer import TextRankSummarizer
 from src.text_processor import TextProcessor
 
-# Wczytanie tekstu
+# Load text
 text = read_text_file("path/to/your/file.txt")
 
-# Podsumowanie
+# Summarization
 summarizer = TextRankSummarizer(language='polish')
 summary, sentences = summarizer.summarize(text, num_sentences=3)
 keywords = summarizer.extract_keywords(text, num_keywords=10)
 
-print("Podsumowanie:", summary)
-print("Słowa kluczowe:", keywords)
+print("Summary:", summary)
+print("Keywords:", keywords)
 ```
 
-## 📁 Struktura Projektu
+## 📁 Project Structure
 
 ```
 summary_generator_using_NLP/
 ├── src/
-│   ├── __init__.py              # Inicjalizacja pakietu
-│   ├── file_reader.py           # Czytanie plików tekstowych
-│   ├── text_processor.py        # Przetwarzanie NLP
-│   └── summarizer.py            # Algorytmy podsumowywania
-├── test_data/                   # Przykładowe pliki do testowania
-│   └── sample_ai_article.txt    # Automatycznie generowany przykład
-├── app.py                       # Główna aplikacja demonstracyjna
-├── requirements.txt             # Zależności Python
-└── README.md                    # Dokumentacja projektu
+│   ├── __init__.py              # Package initialization
+│   ├── file_reader.py           # Reading text files
+│   ├── text_processor.py        # NLP processing
+│   └── summarizer.py            # Summarization algorithms
+├── test_data/                   # Sample files for testing
+│   └── sample_ai_article.txt    # Automatically generated example
+├── app.py                       # Main demo application
+├── requirements.txt             # Python dependencies
+└── README.md                    # Project documentation
 ```
 
-## 🧪 Przykład Działania
+## 🧪 Example Output
 
-### Tekst Wejściowy:
+### Input Text:
 ```
-Sztuczna inteligencja (AI) to dziedzina informatyki, która rozwija się w niezwykłym tempie. 
-Współczesne systemy AI potrafią rozpoznawać obrazy, przetwarzać język naturalny i podejmować 
-złożone decyzje. Uczenie maszynowe stanowi fundament większości nowoczesnych rozwiązań AI...
-```
-
-### Wynik Podsumowania:
-```
-Sztuczna inteligencja (AI) to dziedzina informatyki, która rozwija się w niezwykłym tempie. 
-Głębokie uczenie, wykorzystujące sztuczne sieci neuronowe, rewolucjonizuje wiele dziedzin. 
-Przyszłość sztucznej inteligencji wygląda obiecująco.
+Artificial intelligence (AI) is a field of computer science that is developing at an extraordinary pace.
+Modern AI systems can recognize images, process natural language, and make complex decisions. Machine learning is the foundation of most modern AI solutions...
 ```
 
-### Słowa Kluczowe:
+### Summary Output:
 ```
-1. inteligencja     (waga: 1.000)
-2. uczenie          (waga: 0.857)
-3. sztuczna         (waga: 0.714)
-4. systemy          (waga: 0.571)
-5. język            (waga: 0.429)
+Artificial intelligence (AI) is a field of computer science that is developing at an extraordinary pace.
+Deep learning, using artificial neural networks, is revolutionizing many fields.
+The future of artificial intelligence looks promising.
 ```
 
-## 🔮 Planowane Rozszerzenia (Etap 2)
+### Keywords:
+```
+1. intelligence     (weight: 1.000)
+2. learning         (weight: 0.857)
+3. artificial       (weight: 0.714)
+4. systems          (weight: 0.571)
+5. language         (weight: 0.429)
+```
 
-### 📄 Obsługa Różnych Źródeł
-- **Pliki PDF**: PyPDF2/pdfplumber
-- **Strony internetowe**: requests + BeautifulSoup
-- **Dokumenty Word**: python-docx
+## 🔮 Planned Extensions (Stage 2)
 
-### 🤖 Zaawansowane Modele NLP
+### 📄 Support for Various Sources
+- **PDF files**: PyPDF2/pdfplumber
+- **Web pages**: requests + BeautifulSoup
+- **Word documents**: python-docx
+
+### 🤖 Advanced NLP Models
 - **Transformers (Hugging Face)**: T5, BART, mT5
-- **Podsumowywanie abstrakcyjne**: Generowanie nowych zdań
-- **Modele wielojęzyczne**: Obsługa różnych języków
+- **Abstractive summarization**: Generating new sentences
+- **Multilingual models**: Support for various languages
 
-### 🖥️ Interfejsy Użytkownika
-- **CLI**: argparse/Click dla linii komend
-- **Web GUI**: Streamlit dla interaktywnego dashboardu
-- **API**: Flask/FastAPI dla integracji
+### 🖥️ User Interfaces
+- **CLI**: argparse/Click for command line
+- **Web GUI**: Streamlit for interactive dashboard
+- **API**: Flask/FastAPI for integration
 
-## 🧠 Szczegóły Techniczne
+## 🧠 Technical Details
 
-### Algorytm TextRank
+### TextRank Algorithm
 
-TextRank to algorytm oparty na PageRank, który:
-1. Buduje graf zdań (węzły = zdania, krawędzie = podobieństwo)
-2. Oblicza podobieństwo przy użyciu TF-IDF i cosine similarity
-3. Znajduje najważniejsze zdania algorytmem PageRank
-4. Zwraca N najlepiej ocenionych zdań
+TextRank is a PageRank-based algorithm that:
+1. Builds a sentence graph (nodes = sentences, edges = similarity)
+2. Calculates similarity using TF-IDF and cosine similarity
+3. Finds the most important sentences with the PageRank algorithm
+4. Returns N top-ranked sentences
 
-### Przetwarzanie Języka Polskiego
+### Polish Language Processing
 
-Projekt obsługuje język polski poprzez:
-- Własną listę polskich stop words
-- Segmentację zdań dostosowaną do polskiej interpunkcji
-- Normalizację tekstu z polskimi znakami diakrytycznymi
+The project supports Polish by:
+- Custom list of Polish stop words
+- Sentence segmentation adapted to Polish punctuation
+- Text normalization with Polish diacritics
 
 
 
