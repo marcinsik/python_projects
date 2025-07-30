@@ -189,11 +189,18 @@ class LaborMarketIndicators:
             st.error(f"Error creating labor market overview: {str(e)}")
             return go.Figure()
     
-    def create_employment_trends(self, df: pd.DataFrame) -> go.Figure:
+    def create_employment_trends(self, df: pd.DataFrame, selected_voivodeships: List[str] = None) -> go.Figure:
         """Create employment trends analysis."""
         try:
-            # National averages by year
-            national_data = df.groupby('rok').agg({
+            if selected_voivodeships:
+                data = df[df['wojewodztwo'].isin(selected_voivodeships)]
+                title_suffix = f" - wybrane województwa: {', '.join(selected_voivodeships)}"
+            else:
+                data = df
+                title_suffix = " - cała Polska"
+                
+            # Aggregated data by year
+            aggregated_data = data.groupby('rok').agg({
                 'employment_rate': 'mean',
                 'unemployment_rate': 'mean',
                 'activity_rate': 'mean',
@@ -208,21 +215,21 @@ class LaborMarketIndicators:
             
             # Employment indicators
             fig.add_trace(
-                go.Scatter(x=national_data['rok'], y=national_data['employment_rate'],
+                go.Scatter(x=aggregated_data['rok'], y=aggregated_data['employment_rate'],
                           mode='lines+markers', name='Wskaźnik zatrudnienia',
                           line=dict(color='green', width=3)),
                 row=1, col=1
             )
             
             fig.add_trace(
-                go.Scatter(x=national_data['rok'], y=national_data['unemployment_rate'],
+                go.Scatter(x=aggregated_data['rok'], y=aggregated_data['unemployment_rate'],
                           mode='lines+markers', name='Stopa bezrobocia',
                           line=dict(color='red', width=3)),
                 row=1, col=1
             )
             
             fig.add_trace(
-                go.Scatter(x=national_data['rok'], y=national_data['activity_rate'],
+                go.Scatter(x=aggregated_data['rok'], y=aggregated_data['activity_rate'],
                           mode='lines+markers', name='Aktywność zawodowa',
                           line=dict(color='blue', width=3)),
                 row=1, col=1
@@ -230,14 +237,14 @@ class LaborMarketIndicators:
             
             # Wages
             fig.add_trace(
-                go.Scatter(x=national_data['rok'], y=national_data['avg_wage'],
+                go.Scatter(x=aggregated_data['rok'], y=aggregated_data['avg_wage'],
                           mode='lines+markers', name='Przeciętne wynagrodzenie',
                           line=dict(color='purple', width=3)),
                 row=2, col=1
             )
             
             fig.update_layout(
-                title='Trendy na rynku pracy w Polsce',
+                title=f'Trendy na rynku pracy{title_suffix}',
                 height=600
             )
             
@@ -327,11 +334,18 @@ class LaborMarketIndicators:
             st.error(f"Error creating job market dynamics: {str(e)}")
             return go.Figure()
     
-    def create_flexible_work_analysis(self, df: pd.DataFrame) -> go.Figure:
+    def create_flexible_work_analysis(self, df: pd.DataFrame, selected_voivodeships: List[str] = None, year: int = 2022) -> go.Figure:
         """Create flexible work arrangements analysis."""
         try:
-            # Focus on 2020-2022 to show COVID impact
-            recent_data = df[df['rok'].isin([2020, 2021, 2022])]
+            if selected_voivodeships:
+                data = df[df['wojewodztwo'].isin(selected_voivodeships)]
+                title_suffix = f" - wybrane województwa: {', '.join(selected_voivodeships)}"
+            else:
+                data = df
+                title_suffix = " - cała Polska"
+                
+            # Focus on recent years to show trends
+            recent_data = data[data['rok'].isin([2020, 2021, 2022])]
             
             fig = make_subplots(
                 rows=1, cols=3,
@@ -358,7 +372,7 @@ class LaborMarketIndicators:
                 )
             
             fig.update_layout(
-                title='Elastyczne formy zatrudnienia - trendy 2020-2022',
+                title=f'Elastyczne formy zatrudnienia - trendy 2020-2022{title_suffix}',
                 height=400
             )
             
@@ -469,3 +483,106 @@ class LaborMarketIndicators:
         except Exception as e:
             st.error(f"Error analyzing labor market resilience: {str(e)}")
             return {}
+    
+    def create_market_dynamics(self, df: pd.DataFrame, selected_voivodeships: List[str] = None, year: int = 2022) -> go.Figure:
+        """Create labor market dynamics analysis."""
+        try:
+            if selected_voivodeships:
+                data = df[df['wojewodztwo'].isin(selected_voivodeships)]
+                title_suffix = f" - wybrane województwa: {', '.join(selected_voivodeships)}"
+            else:
+                data = df
+                title_suffix = " - cała Polska"
+            
+            year_data = data[data['rok'] == year]
+            
+            if year_data.empty:
+                return go.Figure()
+            
+            fig = make_subplots(
+                rows=2, cols=2,
+                subplot_titles=(
+                    'Wskaźnik zatrudnienia vs Bezrobocie',
+                    'Wynagrodzenia vs Bezrobocie', 
+                    'Wolne miejsca vs Poszukujący pracy',
+                    'Wzrost wynagrodzeń (%)'
+                ),
+                specs=[[{"type": "scatter"}, {"type": "scatter"}],
+                       [{"type": "scatter"}, {"type": "bar"}]]
+            )
+            
+            # Employment vs unemployment
+            fig.add_trace(
+                go.Scatter(
+                    x=year_data['unemployment_rate'],
+                    y=year_data['employment_rate'],
+                    mode='markers+text',
+                    text=year_data['wojewodztwo'],
+                    textposition='top center',
+                    marker=dict(size=12, color='blue'),
+                    name='Wskaźniki zatrudnienia'
+                ),
+                row=1, col=1
+            )
+            
+            # Wages vs unemployment
+            fig.add_trace(
+                go.Scatter(
+                    x=year_data['unemployment_rate'],
+                    y=year_data['avg_wage'],
+                    mode='markers+text',
+                    text=year_data['wojewodztwo'],
+                    textposition='top center',
+                    marker=dict(size=12, color='green'),
+                    name='Wynagrodzenia'
+                ),
+                row=1, col=2
+            )
+            
+            # Job market balance
+            fig.add_trace(
+                go.Scatter(
+                    x=year_data['job_seekers'],
+                    y=year_data['job_vacancies'],
+                    mode='markers+text',
+                    text=year_data['wojewodztwo'],
+                    textposition='top center',
+                    marker=dict(size=12, color='red'),
+                    name='Rynek pracy'
+                ),
+                row=2, col=1
+            )
+            
+            # Wage growth
+            top_growth = year_data.nlargest(8, 'wage_growth')
+            fig.add_trace(
+                go.Bar(
+                    x=top_growth['wojewodztwo'],
+                    y=top_growth['wage_growth'],
+                    marker_color='orange',
+                    name='Wzrost wynagrodzeń'
+                ),
+                row=2, col=2
+            )
+            
+            fig.update_layout(
+                title=f'Dynamika rynku pracy ({year}){title_suffix}',
+                height=700,
+                showlegend=False
+            )
+            
+            # Update axis labels
+            fig.update_xaxes(title_text="Stopa bezrobocia (%)", row=1, col=1)
+            fig.update_yaxes(title_text="Wskaźnik zatrudnienia (%)", row=1, col=1)
+            fig.update_xaxes(title_text="Stopa bezrobocia (%)", row=1, col=2)
+            fig.update_yaxes(title_text="Średnie wynagrodzenie (zł)", row=1, col=2)
+            fig.update_xaxes(title_text="Poszukujący pracy (tys.)", row=2, col=1)
+            fig.update_yaxes(title_text="Wolne miejsca pracy (tys.)", row=2, col=1)
+            fig.update_xaxes(title_text="Województwo", row=2, col=2, tickangle=45)
+            fig.update_yaxes(title_text="Wzrost wynagrodzeń (%)", row=2, col=2)
+            
+            return fig
+            
+        except Exception as e:
+            st.error(f"Error creating market dynamics: {str(e)}")
+            return go.Figure()
